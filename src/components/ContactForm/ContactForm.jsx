@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup';
 // import * as Yup from 'yup';
 import 'yup-phone';
+import toast from 'react-hot-toast';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/seletors';
-import { addContact } from 'redux/contactSlice';
+import { getContacts, errorContacts } from 'redux/seletors';
+import { addContact } from 'redux/operations';
 
 // const namePattern =
 //   /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
@@ -36,7 +37,8 @@ const checkContscts = (arr, obj) => {
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
-  
+  const isError = useSelector(errorContacts);
+
   const {
     register,
     handleSubmit,
@@ -46,15 +48,20 @@ const ContactForm = () => {
     // resolver: yupResolver(validationSchema),
   });
 
-
   const onSubmit = data => {
     const { name } = data;
 
     if (checkContscts(contacts, data)) {
       dispatch(addContact(data));
+
+      if(isError) return
+
       reset();
     } else {
-      alert(`${name} is already in contacts`);
+      toast(`🔸${name}🔸 is already in contacts`, {
+        icon: '🚫',
+        duration: 3000,
+      });
     }
   };
 
@@ -67,8 +74,8 @@ const ContactForm = () => {
       </Label>
       <Label>
         Number
-        <Input defaultValue="" {...register('number')} />
-        <Messege>{errors.number?.message}</Messege>
+        <Input defaultValue="" {...register('phone')} />
+        <Messege>{errors.phone?.message}</Messege>
       </Label>
       <Button type="submit">Add contact</Button>
     </Form>
