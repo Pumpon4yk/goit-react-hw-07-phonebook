@@ -19,14 +19,13 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-
   font-family: inherit;
   width: 100%;
   border: 0;
   outline: 0;
   font-size: 1.3rem;
   color: white;
-  padding: 7px 0;
+  padding: 7px 5px;
   background: rgb(34,137,195);
 background: linear-gradient(0deg, rgba(34,137,195,0.5074404761904762) 0%, rgba(45,210,253,0) 100%);
   transition: border-color 0.2s;
@@ -66,4 +65,5 @@ export const Button = styled.button`
 export const Messege = styled.span`
   color: red;
   font-size: 10px;
+  text-shadow: none;
 `;

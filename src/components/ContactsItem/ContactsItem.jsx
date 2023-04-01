@@ -1,5 +1,5 @@
 import {Container, Contact, PhoneNumber, ButtonDelete } from './ContactsItem.styled';
-
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import { isLoadingContacts } from 'redux/seletors';
@@ -19,4 +19,14 @@ export const ContactsItem = ({ contact: { id, name, phone }}) => {
       </ButtonDelete>
     </Container>
   );
+};
+
+
+ContactsItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired
+  }).isRequired,
+  
 };
